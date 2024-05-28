@@ -1,6 +1,14 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Hospital {
 
+    static Scanner input = new Scanner(System.in);
+    static ArrayList<Paciente> arrayPacientes;
+    static ArrayList<Medico> arrayMedicos;
     public static void main(String[] args) {
+        arrayPacientes = new ArrayList<>();
+        arrayMedicos = new ArrayList<>();
         operacoes();
     }
 
@@ -12,7 +20,8 @@ public class Hospital {
         System.out.println("|    2 - Remover Paciente        |");
         System.out.println("|    3 - Atualizar Paciente      |");
         System.out.println("|    4 - Cadastrar Médicos       |"); // Prox. Feature
-        System.out.println("|    5 - Sair                    |");
+        System.out.println("|    5 - Listar                  |");
+        System.out.println("|    6 - Sair                    |");
 
         int opc = input.nextInt();
         switch(opc) {
@@ -20,18 +29,18 @@ public class Hospital {
                 triagem(cadastrarPaciente());
                 break;
             case 2:
-                excluirPaciente();
+                //excluirPaciente();
                 break;
             case 3:
-                atualizarPaciente();
+                //atualizarPaciente();
                 break;
             case 4:
-                cadastrarMedico();
-                break;
-            case 4:
-                listar();
+                //cadastrarMedico();
                 break;
             case 5:
+                //listar();
+                break;
+            case 6:
                 System.out.println("Encerrando programa.");
                 System.exit(0);
                 break;
@@ -52,9 +61,22 @@ public class Hospital {
         int idade = input.nextInt();
         System.out.println("\nNível de dor: \n1 - Sem dor\n2 - Dor leve\n3 - Dor moderada\n4 - Dor intensa\n5 - Dor insuportável\n");
         int nivelDor = input.nextInt();
-        Pessoa paciente = new Paciente(nome, cpf, idade, nivelDor, "", 0, 0);
+        Paciente paciente = new Paciente(nome, cpf, idade, nivelDor, "", 0, 0);
+        arrayPacientes.add(paciente);
         System.out.println("Paciente cadastrado com sucesso.");
-        return (Paciente) paciente;
+        return paciente;
+    }
+
+    public static void cadastrarMedico(){
+        System.out.println("\nNome: ");
+        String nome = input.next();
+        System.out.println("\nCPF: ");
+        String cpf = input.next();
+        System.out.println("\nCRM: ");
+        String crm = input.next();
+        Medico medico = new Medico(nome, cpf, crm);
+        arrayMedicos.add(medico);
+        System.out.println("Médico cadastrado com sucesso.");
     }
 
     public static void triagem(Paciente paciente) {
@@ -74,10 +96,35 @@ public class Hospital {
             } catch (Exception e) {
                 System.out.println("Erro ao cadastrar paciente.");
             } finally {
-                consulta();
+                consulta(paciente, getRandomMedico());
             }
         } else {
-            consulta();
+            consulta(paciente, getRandomMedico());
+        }
+        operacoes();
+    }
+    public static void consulta(Paciente paciente, Medico medico) {
+        System.out.println("Consulta realizada com sucesso.");
+        arrayPacientes.remove(paciente);
+    }
+
+    public static void excluirPaciente() {
+        System.out.println("Digite o CPF do paciente que deseja excluir: ");
+        String cpf = input.next();
+        for (Paciente paciente : arrayPacientes) {
+            if (paciente.getCpf().equals(cpf)) {
+                arrayPacientes.remove(paciente);
+                System.out.println("Paciente removido com sucesso.");
+                break;
+            }
         }
     }
+
+    public static Medico getRandomMedico() {
+        return arrayMedicos.get((int) (Math.random() * arrayMedicos.size()));
+    }
+
+
+
+
 }
