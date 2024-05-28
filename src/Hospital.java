@@ -17,7 +17,7 @@ public class Hospital {
         int opc = input.nextInt();
         switch(opc) {
             case 1:
-                cadastrarPaciente();
+                triagem(cadastrarPaciente());
                 break;
             case 2:
                 excluirPaciente();
@@ -39,6 +39,45 @@ public class Hospital {
                 System.out.println("Opção inválida.");
                 operacoes();
                 break;
+        }
+    }
+
+    public static Paciente cadastrarPaciente() {
+
+        System.out.println("\nNome: ");
+        String nome = input.next();
+        System.out.println("\nCPF: ");
+        String cpf = input.next();
+        System.out.println("\nIdade: ");
+        int idade = input.nextInt();
+        System.out.println("\nNível de dor: \n1 - Sem dor\n2 - Dor leve\n3 - Dor moderada\n4 - Dor intensa\n5 - Dor insuportável\n");
+        int nivelDor = input.nextInt();
+        Pessoa paciente = new Paciente(nome, cpf, idade, nivelDor, "", 0, 0);
+        System.out.println("Paciente cadastrado com sucesso.");
+        return (Paciente) paciente;
+    }
+
+    public static void triagem(Paciente paciente) {
+        paciente = cadastrarPaciente();
+        if (paciente.getNivelDor() <= 3) {
+            try {
+                System.out.println("\nPaciente encaminhado para a medição.");
+                System.out.println("\nPressão: ");
+                String pressao = input.next();
+                System.out.println("\nAltura: ");
+                float altura = input.nextFloat();
+                System.out.println("\nPeso: ");
+                float peso = input.nextFloat();
+                paciente.setPressao(pressao);
+                paciente.setAltura(altura);
+                paciente.setPeso(peso);
+            } catch (Exception e) {
+                System.out.println("Erro ao cadastrar paciente.");
+            } finally {
+                consulta();
+            }
+        } else {
+            consulta();
         }
     }
 }
