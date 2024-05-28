@@ -12,6 +12,7 @@ public class Paciente implements Pessoa {
         this.nivelDor = nivelDor;
     }
 
+
     public int getIdade() {
         return idade;
     }
@@ -28,21 +29,19 @@ public class Paciente implements Pessoa {
 
     @Override
     public String getNome() {
-        return null;
+        return nome;
     }
 
     @Override
     public void setNome(String nome) {
-
     }
 
     @Override
     public String getCpf() {
-        return null;
+        return cpf;
     }
 
     @Override
     public void setCpf(String cpf) {
-
     }
 }
