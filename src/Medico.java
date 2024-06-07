@@ -3,18 +3,18 @@ public class Medico implements Pessoa {
 
     private String nome;
     private String cpf;
-    private String crm;
+    private int crm;
 
-    public Medico(String nome, String cpf, String crm) {
+    public Medico(String nome, String cpf, int crm) {
         this.nome = nome;
         this.cpf = cpf;
         this.crm = crm;
     }
 
-    public String getCrm() {
+    public int getCrm() {
         return crm;
     }
-    public void setCrm(String crm) {
+    public void setCrm(int crm) {
         this.crm = crm;
     }
 
